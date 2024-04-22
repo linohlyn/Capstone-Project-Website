@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostTagController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserTagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +34,15 @@ Route::get('/search', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+//Posts
+Route::get('/', [PostController::class, 'index'])->name('posts');
+Route::get('/{post}', [PostController::class, 'show'])->name('post.show');
+Route::get('/create', [PostController::class, 'create'])->name('post.create');
+Route::post('/', [PostController::class, 'create'])->name('post.create');
+Route::delete('/{post}', [PostController::class, 'destroy'])->name('post.destroy');
+Route::get('/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
+Route::put('/edit/{post}', [PostController::class, 'update'])->name('post.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

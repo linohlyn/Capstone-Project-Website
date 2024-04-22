@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,8 +17,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory()
-        ->count(5)
-        ->has(Post::factory()->count(2)->has(Comment::factory()->count(2)))
+        ->count(10)
+        ->has(Post::factory()
+        ->count(2)
+        ->state(new Sequence(
+            ['image' => 'https://placehold.jp/c91d1d/ffffff/400x400.png'],
+            ['image' => 'https://placehold.jp/000000/ffffff/400x400.png']
+        ))
+        ->has(Comment::factory()->count(2)))
         ->create();
     }
 }

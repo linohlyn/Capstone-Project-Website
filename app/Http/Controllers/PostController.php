@@ -3,19 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Comment;
+use App\Models\postTag;
+use App\Models\Tag;
+
 
 class PostController extends Controller
 {
     // Get all Posts
     public function index()
     {
-        return view('posts');
+        return view('welcome', ['posts' => Post::all()]);
     }
 
     // Get specified post
     public function show (Post $post)
     {
-        return view('post.view', ['post' => $post]);
+        return view('post.show', ['post' => $post]);
     }
 
     //Show the create post form view
